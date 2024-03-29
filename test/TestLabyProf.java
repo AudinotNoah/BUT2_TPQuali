@@ -23,7 +23,6 @@ public class TestLabyProf {
         assertEquals(l.getChar(2,1),Labyrinthe.VIDE);
     }
 
-
     /**
      * test des methodes publiques
      * (NE PAS MODIFIER)
