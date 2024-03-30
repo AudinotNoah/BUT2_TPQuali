@@ -10,7 +10,7 @@ public class MainLaby {
         Labyrinthe lab = null;
         try {
             // lab = Labyrinthe.chargerLabyrinthe(args[0]);
-            lab = Labyrinthe.chargerLabyrinthe("laby/test.txt"); // test
+            lab = Labyrinthe.chargerLabyrinthe("laby/laby1.txt"); // test
         } catch (FileNotFoundException e) {
             System.out.println("Erreur : Fichier absent");
         }
@@ -34,9 +34,6 @@ public class MainLaby {
             }
             try {
                 lab.deplacerPerso(action);
-                // TEST
-                // System.out.println(lab.getPersonnage().getX());
-                // System.out.println(lab.getPersonnage().getY());
                
             } catch (ActionInconnueException e) {
                 System.out.println("Action inconnu : "+e.getMessage());

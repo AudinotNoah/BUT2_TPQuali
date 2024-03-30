@@ -10,17 +10,17 @@ import java.io.IOException;
  */
 
 public class Labyrinthe {
-    //  Liste des constantes utilisées dans la représentation du labyrinthe et les actions du joueur.
-    //  Les constantes pour les éléments du labyrinthe représentent les symboles utilisés pour les représenter,
-    //  tandis que les constantes pour les actions du joueur représentent les différentes directions de déplacement.
+    // Liste des constantes utilisées dans la représentation du labyrinthe et les actions du joueur.
+    // Les constantes pour les éléments du labyrinthe représentent les symboles utilisés pour les représenter,
+    // tandis que les constantes pour les actions du joueur représentent les différentes directions de déplacement.
     
-    //liste des constantes pour les éléments du labyrinthe
+    // Liste des constantes pour les éléments du labyrinthe
     public static final char MUR = 'X';
     public static final char PJ = 'P';
     public static final char SORTIE = 'S';
     public static final char VIDE = '.';
     
-    //liste des constantes pour les actions du joueur
+    // Liste des constantes pour les actions du joueur
     public static final String HAUT = "haut";
     public static final String BAS = "bas";
     public static final String DROITE = "droite";
@@ -49,8 +49,8 @@ public class Labyrinthe {
     }
 
     /**
-     * Getter des murs du labyrinthe.
-     * @return Le tableau bidimensionnel de booléens représentant les murs du labyrinthe.
+     * Getter de la sortie du labyrinthe.
+     * @return La sortie du labyrinthe.
      */
     public boolean[][] getMurs() {
         return murs;
@@ -79,15 +79,15 @@ public class Labyrinthe {
      * @return Le caractère représentant le contenu de la position spécifiée dans le labyrinthe.
      */
     public char getChar(int x, int y) {
-        // si on est hors du labyrinthe ou si les coordonnées sont égales à celle d'un mur 
+        // Si on est hors du labyrinthe ou si les coordonnées sont égales à celles d'un mur 
         if (x < 0 || y < 0 || murs.length <= x || murs[x].length <= y || murs[x][y]) {
             return MUR;
         }
-        // si les coordonnées sont égales à celles du personnage 
+        // Si les coordonnées sont égales à celles du personnage  
         else if (personnage.getX() == x && personnage.getY() == y) {
             return PJ;
         }
-        // si les coordonnées sont égales à celles de la sortie 
+        // Si les coordonnées sont égales à celles de la sortie 
         else if (sortie.getX() == x && sortie.getY() == y) {
             return SORTIE;
         }
@@ -112,7 +112,7 @@ public class Labyrinthe {
                 return new int[] { x, y + 1 };
             case GAUCHE:
                 return new int[] { x, y - 1 };
-            // si l'action ne fait pas partie des 4 cas au dessus alors on renvoie ActionInconnueException avec en message le nom de l'action
+            // Si l'action ne fait pas partie des 4 cas au-dessus alors on renvoie ActionInconnueException avec en message le nom de l'action
             default:
                 throw new ActionInconnueException(action);
         }
@@ -125,18 +125,18 @@ public class Labyrinthe {
      */
     public void deplacerPerso(String action) throws ActionInconnueException {
         try {
-            // on utilise getsuivant() pour connaitre la prochaine position du personnage selon l'action
+            // On utilise getSuivant() pour connaître la prochaine position du personnage selon l'action
             int[] posSuivante = getSuivant(personnage.getX(), personnage.getY(), action);
-            // tant que les coordonnées de la prochaine position ne sont pas celles d'un mur 
+            // Tant que les coordonnées de la prochaine position ne sont pas celles d'un mur
             while (getChar(posSuivante[0], posSuivante[1]) != MUR) {
-                // on change les coordonnées du personnage pour celles de la nouvelle position 
+                // On change les coordonnées du personnage pour celles de la nouvelle position 
                 personnage.setAll(posSuivante[0], posSuivante[1]);
-                // on passe à la prochaine position
+                // On passe à la prochaine position
                 posSuivante = getSuivant(personnage.getX(), personnage.getY(), action);
             }
 
         }
-        //si getsuivant() n'a pas reconnu la position alors on refait remonter l'erreur ActionInconnueException avec en message le nom de l'action
+        // Si getSuivant() n'a pas reconnu la position alors on refait remonter l'erreur ActionInconnueException avec en message le nom de l'action
         catch (ActionInconnueException e) {
             throw new ActionInconnueException(e.getMessage());
         }
@@ -149,12 +149,12 @@ public class Labyrinthe {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         
-        // on parcours le labyrinthe et ajoute le char correspondant au StringBuilder grâce à getChar()
+        // On parcourt le labyrinthe et ajoute le caractère correspondant au StringBuilder grâce à getChar()
         for (int i = 0; i < murs.length; i++) {
             for (int j = 0; j < murs[i].length; j++) {
                 sb.append(getChar(i, j));
             }
-            // on ajoute \n pour sauter une ligne sauf si on est arrivé à la dernière ligne 
+            // On ajoute \n pour sauter une ligne sauf si on est arrivé à la dernière ligne 
             if (i < murs.length -1){
                 sb.append("\n");
             }
@@ -167,7 +167,7 @@ public class Labyrinthe {
      * @return true si le personnage a atteint la sortie, sinon false.
      */
     public boolean etreFini() {
-        //si le personnage et la sortie on est les mêmes coordonnées
+        // Si le personnage et la sortie ont les mêmes coordonnées
         return personnage.getX() == sortie.getX() && personnage.getY() == sortie.getY();
     }
 
@@ -180,28 +180,27 @@ public class Labyrinthe {
      * @throws FichierIncorrectException Si le format du fichier est incorrect.
      */
     public static Labyrinthe chargerLabyrinthe(String nom) throws FileNotFoundException, IOException, FichierIncorrectException {
-        // on cree le Labyrinthe et le constructer va initialiser la sortie et le personnage
+        // On crée le Labyrinthe et le constructeur va initialiser la sortie et le personnage
         Labyrinthe l = new Labyrinthe();
         BufferedReader fichier = new BufferedReader(new FileReader(nom));
 
         int n_lignes = 0;
         int n_colonnes = 0;
 
-        // on essaye de creer notre tableau bidimensionnel de murs avec en taille les deux valeurs 
-        // récupéres au dessus qu'on essaye de convertir en nombre
-        // si parseint renvoie une exception ça veut dire que les valeurs de lignes ou colonnes 
-        // ne sont pas des nombres valides, on renvoie donc l'exception FichierIncorrectException
         try {
+            // Lecture et conversion du nombre de lignes et de colonnes
             n_lignes  = Integer.parseInt(fichier.readLine());
             n_colonnes = Integer.parseInt(fichier.readLine());
+            // Initialisation du tableau de murs avec les dimensions obtenues
             l.murs = new boolean[n_lignes][n_colonnes];
         } catch (NumberFormatException e) {
+            // Si les lignes ou les colonnes ne sont pas des nombres valides
             fichier.close();
-            throw new FichierIncorrectException("pb numligne ou colonne");
-        }
-        catch (NegativeArraySizeException e2){
+            throw new FichierIncorrectException("Problème avec le nombre de lignes ou de colonnes");
+        } catch (NegativeArraySizeException e2){
+            // Si les lignes ou les colonnes sont négatives
             fichier.close();
-            throw new FichierIncorrectException("pb numligne ou colonne");
+            throw new FichierIncorrectException("Le nombre de lignes ou de colonnes est négatif");
         }
         
 
@@ -213,9 +212,9 @@ public class Labyrinthe {
         String ligne = fichier.readLine();
         while (ligne != null) {
             j = 0;
-            // on boucle sur chaque char de la ligne
+            // On boucle sur chaque caractère de la ligne
             for (char c : ligne.toCharArray()) {
-                // on verifie si le nombre de colonnes ou lignes est supéerieur aux nombres annoncés
+                // On vérifie si le nombre de colonnes ou lignes est supérieur aux nombres annoncés
                 if (i >= n_lignes){
                     fichier.close();
                     throw new FichierIncorrectException("nbLignes ne correspond pas");
@@ -224,8 +223,6 @@ public class Labyrinthe {
                     fichier.close();
                     throw new FichierIncorrectException("nbColonnes ne correspond pas");
                 }
-
-    
                 switch (c) {
                     case 'X':
                         l.murs[i][j] = true;
@@ -249,8 +246,8 @@ public class Labyrinthe {
                         }
                         break;
                     case '.':
-                        // dans le cas d'une case vide on ne fait rien car c'est le cas de base 
-                        // de getchar() par contre on break quand meme pour eviter d'activer le cas default
+                        // Dans le cas d'une case vide on ne fait rien car c'est le cas de base 
+                        // de getChar() par contre on break quand même pour éviter d'activer le cas default
                         break;
                     default:
                         fichier.close();
@@ -258,7 +255,7 @@ public class Labyrinthe {
                 }
                 j++;
             }
-            // on vérifie si le nombre de colonnes n'est pas inférieur à celui annoncé
+            // On vérifie si le nombre de colonnes n'est pas inférieur à celui annoncé
             if (j != n_colonnes){
                 fichier.close();
                 throw new FichierIncorrectException("nbColonnes ne correspond pas");
@@ -269,7 +266,7 @@ public class Labyrinthe {
 
         fichier.close();
 
-        // on vérifie si le nombre de lignes  n'est pas inférieur à celle annoncé
+        // On vérifie si le nombre de lignes n'est pas inférieur à celui annoncé
         if (i != n_lignes){
             throw new FichierIncorrectException("nbLignes ne correspond pas");
         }
