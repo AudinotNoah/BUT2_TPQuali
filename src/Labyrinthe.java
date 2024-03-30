@@ -215,6 +215,7 @@ public class Labyrinthe {
             j = 0;
             // on boucle sur chaque char de la ligne
             for (char c : ligne.toCharArray()) {
+                // on verifie si le nombre de colonnes ou lignes est supéerieur aux nombres annoncés
                 if (i >= n_lignes){
                     fichier.close();
                     throw new FichierIncorrectException("nbLignes ne correspond pas");
@@ -257,6 +258,7 @@ public class Labyrinthe {
                 }
                 j++;
             }
+            // on vérifie si le nombre de colonnes n'est pas inférieur à celui annoncé
             if (j != n_colonnes){
                 fichier.close();
                 throw new FichierIncorrectException("nbColonnes ne correspond pas");
@@ -267,6 +269,7 @@ public class Labyrinthe {
 
         fichier.close();
 
+        // on vérifie si le nombre de lignes  n'est pas inférieur à celle annoncé
         if (i != n_lignes){
             throw new FichierIncorrectException("nbLignes ne correspond pas");
         }

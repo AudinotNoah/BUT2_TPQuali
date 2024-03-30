@@ -163,15 +163,26 @@ public class TestLaby {
     @Test
     public void chargerLabyrintheNombreIncorrectLigneColonne() throws Exception{
         FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_NombrecolonneInvalide.txt");; 
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombrecolonneInvalideInferieur.txt");; 
         });
         assertEquals("nbColonnes ne correspond pas",exception.getMessage());
 
-
         FichierIncorrectException exception2 = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_NombreligneInvalide.txt");; 
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombrecolonneInvalideSuperieur.txt");; 
         });
-        assertEquals("nbLignes ne correspond pas",exception2.getMessage());
+        assertEquals("nbColonnes ne correspond pas",exception2.getMessage());
+        
+
+        FichierIncorrectException exception3 = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombreligneInvalideInferieur.txt");; 
+        });
+        assertEquals("nbLignes ne correspond pas",exception3.getMessage());
+
+        FichierIncorrectException exception4 = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombreligneInvalideSuperieur.txt");; 
+        });
+        assertEquals("nbLignes ne correspond pas",exception4.getMessage());
+
 
     }
 
