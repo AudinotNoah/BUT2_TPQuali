@@ -8,6 +8,104 @@ import org.junit.jupiter.api.Test;
 
 
 public class TestLaby {
+    @Test
+    public void chargerLabyrintheOK() throws Exception{
+        Labyrinthe l = Labyrinthe.chargerLabyrinthe("laby/laby0.txt");
+        boolean[][] murs = {
+            {true, true, true, true, true, true, true},
+            {true, false, false, false, false, false, true},
+            {true, false, false, false, false, false, true},
+            {true, false, false, false, false, false, true},
+            {true, true, true, true, true, true, true}
+        };
+        assertArrayEquals(murs,l.getMurs());
+
+        assertEquals(1, l.getSortie().getX());
+        assertEquals(1, l.getSortie().getY());
+
+        assertEquals(2, l.getPersonnage().getX());
+        assertEquals(2, l.getPersonnage().getX());
+    }   
+
+    @Test
+    public void chargerLabyrintheFichierInconnu() throws Exception{
+        assertThrows(FileNotFoundException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/testtt.txt");
+        });
+    }
+
+    @Test
+    public void chargerLabyrinthePbLigneColonne() throws Exception{
+        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_colonneInvalide.txt");; 
+        });
+        assertEquals("pb numligne ou colonne",exception.getMessage());
+
+
+        FichierIncorrectException exception2 = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_ligneInvalide.txt");; 
+        });
+        assertEquals("pb numligne ou colonne",exception2.getMessage());
+
+    }
+
+    @Test
+    public void chargerLabyrintheNombreIncorrectLigneColonne() throws Exception{
+        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombrecolonneInvalideInferieur.txt");; 
+        });
+        assertEquals("nbColonnes ne correspond pas",exception.getMessage());
+
+        FichierIncorrectException exception2 = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombrecolonneInvalideSuperieur.txt");; 
+        });
+        assertEquals("nbColonnes ne correspond pas",exception2.getMessage());
+
+
+        FichierIncorrectException exception3 = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombreligneInvalideInferieur.txt");; 
+        });
+        assertEquals("nbLignes ne correspond pas",exception3.getMessage());
+
+        FichierIncorrectException exception4 = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_NombreligneInvalideSuperieur.txt");; 
+        });
+        assertEquals("nbLignes ne correspond pas",exception4.getMessage());
+
+    }
+
+    @Test
+    public void chargerLabyrinthePasdeSortie() throws Exception{
+        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_pasSortie.txt");; 
+        });
+        assertEquals("sortie inconnue",exception.getMessage());
+    }
+
+    @Test
+    public void chargerLabyrintheTropdeSorties() throws Exception{
+        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_deuxSortie.txt");; 
+        });
+        assertEquals("plusieurs sorties",exception.getMessage()); 
+    }
+
+    @Test
+    public void chargerLabyrinthePasdePersonnage() throws Exception{
+        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_pasPersonnage.txt");; 
+        });
+        assertEquals("personnage inconnu",exception.getMessage());
+    }
+
+    @Test
+    public void chargerLabyrintheTropdePersonnages() throws Exception{
+        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
+            Labyrinthe.chargerLabyrinthe("laby/laby_deuxPersonnage.txt");; 
+        });
+        assertEquals("plusieurs personnages",exception.getMessage()); 
+        
+    }
     
     @Test
     public void getCharOK() throws Exception{
@@ -114,85 +212,5 @@ public class TestLaby {
         l.deplacerPerso("haut");
         l.deplacerPerso("gauche");
         assertEquals(true,l.etreFini());
-
-    }
-
-    @Test
-    public void chargerLabyrintheOK() throws Exception{
-        Labyrinthe l = Labyrinthe.chargerLabyrinthe("laby/laby0.txt");
-        boolean[][] murs = {
-            {true, true, true, true, true, true, true},
-            {true, false, false, false, false, false, true},
-            {true, false, false, false, false, false, true},
-            {true, false, false, false, false, false, true},
-            {true, true, true, true, true, true, true}
-        };
-        assertArrayEquals(murs,l.getMurs());
-
-        assertEquals(1, l.getSortie().getX());
-        assertEquals(1, l.getSortie().getY());
-
-        assertEquals(2, l.getPersonnage().getX());
-        assertEquals(2, l.getPersonnage().getX());
-    }   
-
-
-    @Test
-    public void chargerLabyrintheFichierInconnu() throws Exception{
-        assertThrows(FileNotFoundException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/testtt.txt");
-        });
-    }
-
-    @Test
-    public void chargerLabyrinthePbLigneColonne() throws Exception{
-        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_colonneInvalide.txt");; 
-        });
-        assertEquals("pb numligne ou colonne",exception.getMessage());
-
-
-        FichierIncorrectException exception2 = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_ligneInvalide.txt");; 
-        });
-        assertEquals("pb numligne ou colonne",exception2.getMessage());
-
-    }
-
-
-    @Test
-    public void chargerLabyrintheNombreIncorrectLigneColonne() throws Exception{
-        FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_NombrecolonneInvalideInferieur.txt");; 
-        });
-        assertEquals("nbColonnes ne correspond pas",exception.getMessage());
-
-        FichierIncorrectException exception2 = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_NombrecolonneInvalideSuperieur.txt");; 
-        });
-        assertEquals("nbColonnes ne correspond pas",exception2.getMessage());
-        
-
-        FichierIncorrectException exception3 = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_NombreligneInvalideInferieur.txt");; 
-        });
-        assertEquals("nbLignes ne correspond pas",exception3.getMessage());
-
-        FichierIncorrectException exception4 = assertThrows(FichierIncorrectException.class, () -> {
-            Labyrinthe.chargerLabyrinthe("laby/laby_NombreligneInvalideSuperieur.txt");; 
-        });
-        assertEquals("nbLignes ne correspond pas",exception4.getMessage());
-
-
-    }
-
-
-
-
-
-    // à supprimer
-    @Test
-    public void testest() throws Exception{
-        Labyrinthe l = Labyrinthe.chargerLabyrinthe("laby/test.txt");
     }
 }
