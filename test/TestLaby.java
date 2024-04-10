@@ -39,13 +39,13 @@ public class TestLaby {
         FichierIncorrectException exception = assertThrows(FichierIncorrectException.class, () -> {
             Labyrinthe.chargerLabyrinthe("laby/laby_colonneInvalide.txt");; 
         });
-        assertEquals("pb numligne ou colonne",exception.getMessage());
+        assertEquals("Problème avec le nombre de lignes ou de colonnes",exception.getMessage());
 
 
         FichierIncorrectException exception2 = assertThrows(FichierIncorrectException.class, () -> {
             Labyrinthe.chargerLabyrinthe("laby/laby_ligneInvalide.txt");; 
         });
-        assertEquals("pb numligne ou colonne",exception2.getMessage());
+        assertEquals("Problème avec le nombre de lignes ou de colonnes",exception2.getMessage());
 
     }
 
