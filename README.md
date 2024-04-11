@@ -24,12 +24,12 @@
 ## Lancement de l'application
     -Compilation des fichiers: 
         javac *.java
-    -Lancement du jeu:
+    -Lancement du jeu (éxécution du fichier .java):
         java MainLaby
 
 
 ## Résultats des tests
-    -
+    -Tout les test fonctionne avec succès, aucun échec
 
 ## Couverture de test
-    
+    -
