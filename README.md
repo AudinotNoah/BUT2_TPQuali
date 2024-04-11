@@ -1,9 +1,8 @@
 # Rendu du TP - Labyrinthe Ricochet
 
-## Noms
-- [Audinot Noa]
-- [Temirov Abdoul-Raouf]
-- [Groupe B]
+- Audinot Noah
+- Temirov Abdoul-Raouf
+- Groupe B
 
 
 -Difficultés rencontrées
