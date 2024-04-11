@@ -6,14 +6,10 @@
 
 
 ## Difficultés rencontrées
-    -S'accorder sur le style de codage: 
-        Nos style de codage sont différents, il a fallu se mettre en accord pour ne pas se perdre dans le code et éviter de perdre du temps.
     -Répartition des tâches:
         Nous avons décidé de travailler de façon coordonnés, on se mets à deux sur chaque exercices, pas de distribution d'exercices.
     -Les test:
         Il faut penser à chaque test possible et modifier le code en fonction sans créer d'autres erreurs.
-    -Communication:
-        Noah parle pas.
 
 
 ## Choix de programmation
@@ -32,4 +28,10 @@
     -Tout les test fonctionne avec succès, aucun échec
 
 ## Couverture de test
-    -
+    -Les test codés permettent de vérifier l'ensemble du bon 
+     fonctionnement du jeu:
+     Le lancement, la génération du labyrinthe, les déplacements du personnage,
+     les colisions avec les murs, l'arrêt du jeu lorsqu'on atteint la sortie,
+     l'affichage dans la console.
+    -Pour réaliser ces tests, nous avons utilisé JUnit.
+
