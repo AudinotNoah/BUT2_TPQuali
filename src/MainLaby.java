@@ -9,8 +9,7 @@ public class MainLaby {
     public static void main(String[] args){
         Labyrinthe lab = null;
         try {
-            // lab = Labyrinthe.chargerLabyrinthe(args[0]);
-            lab = Labyrinthe.chargerLabyrinthe("laby/laby1.txt"); // test
+            lab = Labyrinthe.chargerLabyrinthe(args[0]); 
         } catch (FileNotFoundException e) {
             System.out.println("Erreur : Fichier absent");
         }
